@@ -1,3 +1,40 @@
-type error_response_e = {
-  error_e: string;
+(* Partial definition of the contacts api response *)
+
+type top = {
+  feed: feed_info;
+}
+
+type feed_info = {
+  link: link_info list;
+  total_results <json name="openSearch$totalResults">: text_field;
+  start_index <json name="openSearch$startIndex">: text_field;
+  items_per_page <json name="openSearch$itemsPerPage">: text_field;
+  entry: entry_info list;
+}
+
+type link_info = {
+  rel: string;
+  link_type <json name="type">: string;
+  href: string;
+  ?etag <json name="gd$etag">: string option;
+}
+
+type text_field = {
+  text: string;
+}
+
+type entry_info = {
+  id: text_field;
+  link: link_info list;
+  ?name <json name="gd$name">: name_info option;
+  ?email <json name="gd$email">: email_info list option;
+}
+
+type name_info = {
+  full_name <json name="gd$fullName">: text_field;
+}
+
+type email_info = {
+  address: string;
+  ?primary: bool option;
 }
