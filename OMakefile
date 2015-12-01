@@ -1,0 +1,17 @@
+OCAML_LIBS = $(OCAML_LIBS_gcontacts-api)
+
+FILES[] =
+  gcontacts_api_t
+  gcontacts_api_j
+  gcontacts_api_v
+  gcontacts_api
+
+Atdgen(gcontacts_api, -j-std)
+OCamlLibrary(gcontacts-api, $(FILES))
+Meta(gcontacts-api)
+
+.DEFAULT: META gcontacts-api.cma gcontacts-api.cmxa
+
+.PHONY: clean
+clean:
+  rm -f *.o *.a *.cm* *~ *.annot *.run *.opt META $(ATDGEN_OUTFILES)
