@@ -3,6 +3,9 @@ open Lwt
 open Log
 open Util_url.Op
 
+(* Google Contacts API provides direct urls to
+   resources which is why 'with_url' functions exist *)
+
 module Http = Util_http_client.Wrap (Util_http_client.Original) (struct
   type orig_result = Util_http_client.response
   type result = Util_http_client.response
