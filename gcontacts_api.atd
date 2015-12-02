@@ -1,6 +1,6 @@
 (* Partial definition of the contacts api response *)
 
-type top = {
+type gcontacts_resp = {
   feed: feed_info;
 }
 
@@ -20,13 +20,13 @@ type link_info = {
 }
 
 type text_field = {
-  text: string;
+  text <json name="$t">: string;
 }
 
 type entry_info = {
   id: text_field;
   link: link_info list;
-  ?name <json name="gd$name">: name_info option;
+  name <json name="title">: text_field;
   ?email <json name="gd$email">: email_info list option;
 }
 
