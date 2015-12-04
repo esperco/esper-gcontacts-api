@@ -82,7 +82,7 @@ let get_photo_with_url string_url with_token =
     with_token (fun token ->
       call_with_url string_url token
     ) >>= function
-    | (`OK, _headers, body) -> return body
+    | (`OK, _headers, body) -> return (Util_enc.base64_encode body)
     | (`Not_found, _, _) -> return ""
     | (status,headers,body) ->
         Google_http.fail "contact photo" status body
