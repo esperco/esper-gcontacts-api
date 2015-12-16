@@ -15,7 +15,7 @@ end)
 type http_response = Util_http_client.response
 type with_token = (string -> http_response Lwt.t) -> http_response Lwt.t
 
-let call_get_contacts email access_token =
+let call_get_contacts email index access_token =
   let s_email = Email.to_string email in
   let path = "m8/feeds/contacts/" ^ Util_url.encode s_email
              ^ "/thin" in
@@ -23,15 +23,15 @@ let call_get_contacts email access_token =
                  "GData-Version", "3.0"] in
   let url = Google_api_util.make_uri
     ~host:"www.google.com"
-    ~query:["alt",["json"]]
+    ~query:["alt",["json"];"start-index",[index]]
     path
   in
   Http.get ~headers url
 
-let get_contacts email with_token =
+let get_contacts email index with_token =
   Cloudwatch.time "google.api.contacts.get_contacts" (fun () ->
     with_token (fun token ->
-      call_get_contacts email token
+      call_get_contacts email index token
     ) >>= function
     | (`OK, _headers, body) ->
         return (Gcontacts_api_j.gcontacts_resp_of_string body)
