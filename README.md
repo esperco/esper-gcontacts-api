@@ -8,4 +8,6 @@ It won't build as is but most of the code was used in production.
 Description
 -----------
 
-Sorry, no description yet :cry:
+OCaml/Lwt client for Google Contacts.
+
+Depends on https://github.com/esperco/esper-google-auth
